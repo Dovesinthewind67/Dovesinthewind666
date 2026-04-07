@@ -18,8 +18,8 @@ if not st.session_state.is_logged_in:
             st.rerun() 
         else:
             st.error("Login failed. Please check your credentials.")
-            if user_input != "ozone":
-                st.warning("Username 'ozone' not found.")
+            if user_input != "dovesinthewind69":
+                st.warning("Username 'dovesinthewind69' not found.")
             elif pass_input != "282007":
                 st.warning("Incorrect password for 'ozone'.")
 
