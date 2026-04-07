@@ -12,20 +12,20 @@ if not st.session_state.is_logged_in:
     pass_input = st.text_input("Password", type="password", placeholder="Enter your password")
 
     if st.button("Sign In"):
-        if user_input == "doves" and pass_input == "282007":
+        if user_input == "ozone" and pass_input == "282007":
             st.session_state.is_logged_in = True
             st.success("Login successful!")
             st.rerun() 
         else:
             st.error("Login failed. Please check your credentials.")
-            if user_input != "doves":
-                st.warning("Username 'doves' not found.")
+            if user_input != "ozone":
+                st.warning("Username 'ozone' not found.")
             elif pass_input != "282007":
-                st.warning("Incorrect password for 'doves'.")
+                st.warning("Incorrect password for 'ozone'.")
 
 else:
     st.sidebar.title("ATM Menu")
-    st.sidebar.write(f"👤 User: **doves**")
+    st.sidebar.write(f"👤 User: **ozone**")
     if st.sidebar.button("Log out"):
         st.session_state.is_logged_in = False
         st.rerun()
