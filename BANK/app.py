@@ -8,7 +8,7 @@ st.set_page_config(page_title="DovesInTheWind69 Bank", page_icon="💎", layout=
 LANGUAGES = {
     "TH": {
         "welcome": "ยินดีต้อนรับสู่",
-        "sub_welcome": "ระบบธนาคารดิจิทัลที่ปลอดภัยและเรียบง่าย",
+        " Developed by โอโซนบ้านร้อง ": " Developed by โอโซนบ้านร้อง ",
         "login": "เข้าสู่ระบบ",
         "signup": "เปิดบัญชี",
         "user_label": "ชื่อผู้ใช้งาน",
@@ -109,7 +109,7 @@ with st.sidebar:
 # --- AUTHENTICATION ---
 if not st.session_state.is_logged_in:
     st.markdown(f"<h1 style='text-align: center; color: #1e3c72;'>💎 DOVESINTHEWIND69 BANK</h1>", unsafe_allow_html=True)
-    st.markdown(f"<p style='text-align: center; color: gray;'>{t('sub_welcome')}</p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='text-align: center; color: gray;'>{t('โอโซนบ้านร้อง')}</p>", unsafe_allow_html=True)
 
     tab_login, tab_signup = st.tabs([f"🔒 {t('login')}", f"📝 {t('signup')}"])
 
