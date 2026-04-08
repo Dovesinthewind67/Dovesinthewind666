@@ -2,7 +2,7 @@ import streamlit as st
 import datetime
 
 # --- CONFIG ---
-st.set_page_config(page_title="Doves Bank", page_icon="🏦", layout="centered")
+st.set_page_config(page_title="Dovesinthewind69 Bank", page_icon="🏦", layout="centered")
 
 # --- CUSTOM CSS (เพิ่มความสวยงาม) ---
 st.markdown("""
@@ -171,4 +171,4 @@ else:
             st.rerun()
 
     st.divider()
-    st.markdown("<p style='text-align: center; color: gray; font-size: 0.8rem;'>© 2026 DOVES BANK DIGITAL SYSTEM v2.0</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: gray; font-size: 0.8rem;'>© 2026 DOVESINTHEWIND69 BANK DIGITAL SYSTEM </p>", unsafe_allow_html=True)
