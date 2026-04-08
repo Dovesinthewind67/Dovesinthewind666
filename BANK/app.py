@@ -8,13 +8,12 @@ st.set_page_config(page_title="Dovesinthewind69 Bank", page_icon="🏦", layout=
 if 'is_logged_in' not in st.session_state:
     st.session_state.is_logged_in = False
 if 'balance' not in st.session_state:
-    st.session_state.balance = 500  # ยอดเงินเริ่มต้น
+    st.session_state.balance = 500  
 if 'history' not in st.session_state:
-    st.session_state.history = [] # เก็บประวัติธุรกรรม
-
+    st.session_state.history = [] 
 # --- LOGIN PAGE ---
 if not st.session_state.is_logged_in:
-    st.markdown("<h1 style='text-align: center;'>🔐 ATM LOGIN</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>🔐 DOVESINTHEWIND69 BANK LOGIN</h1>", unsafe_allow_html=True)
     
     with st.container(border=True):
         user_input = st.text_input("Username", placeholder="Enter your username")
@@ -37,7 +36,6 @@ else:
     st.sidebar.markdown(f"**Welcome, {st.session_state.user_name}!**")
     st.sidebar.divider()
     
-    # แสดงยอดเงินใน Sidebar แบบเด่นๆ
     st.sidebar.metric(label="Current Balance", value=f"{st.session_state.balance:,.2f} ฿")
     
     if st.sidebar.button("Logout", icon="🚀"):
@@ -46,8 +44,7 @@ else:
 
     # Main Content
     st.title("🏦 Banking Services")
-    
-    # Tabs สำหรับแบ่งหน้าบริการ
+   
     tab1, tab2, tab3 = st.tabs(["💰 Transactions", "📜 History", "⚙️ Settings"])
 
     with tab1:
