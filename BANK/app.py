@@ -66,7 +66,7 @@ if 'lang' not in st.session_state:
 if 'users_db' not in st.session_state:
     st.session_state.users_db = {"ozone": "282007"}
 if 'user_balances' not in st.session_state:
-    st.session_state.user_balances = {"ozone": 500.0}
+    st.session_state.user_balances = {"ozone": 999}
 if 'user_histories' not in st.session_state:
     st.session_state.user_histories = {"ozone": []}
 if 'is_logged_in' not in st.session_state:
