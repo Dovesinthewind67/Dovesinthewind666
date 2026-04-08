@@ -2,147 +2,173 @@ import streamlit as st
 import datetime
 
 # --- CONFIG ---
-st.set_page_config(page_title="Dovesinthewind69 Bank", page_icon="🏦", layout="centered")
+st.set_page_config(page_title="Doves Bank", page_icon="🏦", layout="centered")
+
+# --- CUSTOM CSS (เพิ่มความสวยงาม) ---
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Kanit', sans-serif;
+    }
+    .main {
+        background-color: #f8f9fa;
+    }
+    .stButton>button {
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .balance-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px;
+        border-radius: 20px;
+        color: white;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .history-item {
+        background: white;
+        padding: 10px 15px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        border-left: 5px solid #764ba2;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # --- SESSION STATE INITIALIZATION ---
-# เก็บข้อมูลผู้ใช้หลายคนใน Dictionary {username: password}
 if 'users_db' not in st.session_state:
-    st.session_state.users_db = {"ozone": "282007"}  # บัญชีเริ่มต้น
-
-# เก็บยอดเงินแยกตาม User {username: balance}
+    st.session_state.users_db = {"ozone": "282007"}
 if 'user_balances' not in st.session_state:
     st.session_state.user_balances = {"ozone": 500.0}
-
-# เก็บประวัติแยกตาม User {username: [history_list]}
 if 'user_histories' not in st.session_state:
     st.session_state.user_histories = {"ozone": []}
-
 if 'is_logged_in' not in st.session_state:
     st.session_state.is_logged_in = False
-
 if 'current_user' not in st.session_state:
     st.session_state.current_user = None
 
 # --- LOGIN & SIGN UP PAGE ---
 if not st.session_state.is_logged_in:
-    st.markdown("<h1 style='text-align: center;'>🔐 DOVESINTHEWIND69 BANK</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #4A90E2;'>🏦 DOVES BANK</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: gray;'>Secure & Simple Digital Banking</p>", unsafe_allow_html=True)
     
-    auth_mode = st.tabs(["Login", "Sign up"])
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        auth_mode = st.tabs(["🔒 Login", "📝 Sign Up"])
 
-    # --- TAB: LOGIN ---
-    with auth_mode[0]:
-        with st.container(border=True):
-            user_input = st.text_input("Username", key="login_user")
-            pass_input = st.text_input("Password", type="password", key="login_pass")
-            
-            if st.button("Sign In", use_container_width=True, type="primary"):
-                if user_input in st.session_state.users_db and st.session_state.users_db[user_input] == pass_input:
-                    st.session_state.is_logged_in = True
-                    st.session_state.current_user = user_input
-                    st.success(f"ยินดีต้อนรับคุณ {user_input}!")
-                    st.rerun()
-                else:
-                    st.error("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
+        # --- TAB: LOGIN ---
+        with auth_mode[0]:
+            with st.form("login_form"):
+                user_input = st.text_input("Username")
+                pass_input = st.text_input("Password", type="password")
+                submit_login = st.form_submit_button("Sign In", use_container_width=True)
+                
+                if submit_login:
+                    if user_input in st.session_state.users_db and st.session_state.users_db[user_input] == pass_input:
+                        st.session_state.is_logged_in = True
+                        st.session_state.current_user = user_input
+                        st.rerun()
+                    else:
+                        st.error("Invalid credentials.")
 
-    # --- TAB: SIGN UP ---
-    with auth_mode[1]:
-        with st.container(border=True):
-            new_user = st.text_input("สร้าง Username", key="reg_user")
-            new_pass = st.text_input("สร้าง Password", type="password", key="reg_pass")
-            confirm_pass = st.text_input("ยืนยัน Password", type="password", key="reg_confirm")
-            
-            if st.button("Register Now", use_container_width=True):
-                if not new_user or not new_pass:
-                    st.warning("กรุณากรอกข้อมูลให้ครบถ้วน")
-                elif new_user in st.session_state.users_db:
-                    st.error("ชื่อผู้ใช้นี้มีคนใช้แล้ว")
-                elif new_pass != confirm_pass:
-                    st.error("รหัสผ่านไม่ตรงกัน")
-                else:
-                    # บันทึกข้อมูลผู้ใช้ใหม่ลงใน Session State
-                    st.session_state.users_db[new_user] = new_pass
-                    st.session_state.user_balances[new_user] = 0.0  # เริ่มต้น 0 บาท
-                    st.session_state.user_histories[new_user] = []
-                    st.success("สมัครสมาชิกสำเร็จ! กรุณาไปที่หน้า Login")
+        # --- TAB: SIGN UP ---
+        with auth_mode[1]:
+            with st.form("reg_form"):
+                new_user = st.text_input("Create Username")
+                new_pass = st.text_input("Create Password", type="password")
+                confirm_pass = st.text_input("Confirm Password", type="password")
+                submit_reg = st.form_submit_button("Create Account", use_container_width=True)
+                
+                if submit_reg:
+                    if not new_user or not new_pass:
+                        st.warning("Please fill in all fields.")
+                    elif new_user in st.session_state.users_db:
+                        st.error("Username already taken.")
+                    elif new_pass != confirm_pass:
+                        st.error("Passwords do not match.")
+                    else:
+                        st.session_state.users_db[new_user] = new_pass
+                        st.session_state.user_balances[new_user] = 0.0
+                        st.session_state.user_histories[new_user] = []
+                        st.success("Registration successful! Please login.")
 
 # --- MAIN APP PAGE ---
 else:
     user = st.session_state.current_user
     
     # Sidebar
-    st.sidebar.title("🏧 ATM Menu")
-    st.sidebar.markdown(f"**Welcome, {user}!**")
-    st.sidebar.divider()
+    st.sidebar.markdown(f"### 👤 Profile")
+    st.sidebar.info(f"**User:** {user}")
     
-    # ดึงค่าเงินปัจจุบันของผู้ใช้
-    current_bal = st.session_state.user_balances[user]
-    st.sidebar.metric(label="Current Balance", value=f"{current_bal:,.2f} ฿")
-    
-    if st.sidebar.button("Logout", icon="🚀"):
+    if st.sidebar.button("Logout", use_container_width=True, icon="🚪"):
         st.session_state.is_logged_in = False
         st.session_state.current_user = None
         st.rerun()
 
-    # Main Content
-    st.title("🏦 Banking Services")
-    tab1, tab2, tab3 = st.tabs(["💰 Transactions", "📜 History", "⚙️ Settings"])
+    # Dashboard Header
+    st.markdown(f"""
+        <div class="balance-card">
+            <p style='margin:0; opacity:0.8;'>Total Balance</p>
+            <h1 style='margin:0; font-size: 2.5rem;'>{st.session_state.user_balances[user]:,.2f} ฿</h1>
+        </div>
+    """, unsafe_allow_html=True)
+
+    tab1, tab2, tab3 = st.tabs(["💸 Transactions", "📜 History", "⚙️ Account"])
 
     with tab1:
-        choice = st.radio("Select Service", ["Withdrawal (ถอนเงิน)", "Deposit (ฝากเงิน)"], horizontal=True)
-        st.divider()
-
-        if "Withdrawal" in choice:
-            st.subheader("💳 Withdrawal")
-            amount = st.number_input("Enter amount to withdraw:", min_value=0, step=100)
-            
-            if st.button("Confirm Withdrawal", type="primary"):
-                if amount <= 0:
-                    st.warning("Please enter an amount greater than 0.")
-                elif amount > st.session_state.user_balances[user]:
-                    st.error(f"❌ Error: Insufficient funds. (Available: {st.session_state.user_balances[user]} ฿)")
-                elif amount > 1000:
-                    st.error("❌ Error: Maximum withdrawal limit is 1,000 ฿ per transaction.")
-                else:
-                    st.session_state.user_balances[user] -= amount
-                    now = datetime.datetime.now().strftime("%H:%M:%S")
-                    st.session_state.user_histories[user].append(f"[-] {now} | Withdrew {amount:,.2f} ฿")
-                    st.balloons()
-                    st.success(f"✅ Withdrawal successful!")
-                    st.rerun()
-
-        elif "Deposit" in choice:
+        col_left, col_right = st.columns(2)
+        
+        with col_left:
             st.subheader("💵 Deposit")
-            amount = st.number_input("Enter amount to deposit:", min_value=0, step=100)
-            
-            if st.button("Confirm Deposit", type="primary"):
-                if amount <= 0:
-                    st.warning("Please enter an amount greater than 0.")
-                elif amount > 5000:
-                    st.error("❌ Error: Deposit limit exceeded (Max 5,000).")
-                else:
-                    st.session_state.user_balances[user] += amount
-                    now = datetime.datetime.now().strftime("%H:%M:%S")
-                    st.session_state.user_histories[user].append(f"[+] {now} | Deposited {amount:,.2f} ฿")
-                    st.toast(f"Successfully deposited {amount} Baht!", icon='💰')
-                    st.success(f"✅ Deposit successful!")
+            d_amount = st.number_input("Amount to deposit", min_value=0, step=100, key="dep")
+            if st.button("Confirm Deposit", type="primary", use_container_width=True):
+                if 0 < d_amount <= 5000:
+                    st.session_state.user_balances[user] += d_amount
+                    now = datetime.datetime.now().strftime("%d %b, %H:%M")
+                    st.session_state.user_histories[user].append(f"🟢 | {now} | Deposit: +{d_amount:,.2f} ฿")
+                    st.toast("Deposit Successful!", icon="💰")
                     st.rerun()
+                else:
+                    st.error("Limit: 1 - 5,000 ฿")
+
+        with col_right:
+            st.subheader("💳 Withdraw")
+            w_amount = st.number_input("Amount to withdraw", min_value=0, step=100, key="with")
+            if st.button("Confirm Withdraw", use_container_width=True):
+                if w_amount > st.session_state.user_balances[user]:
+                    st.error("Insufficient balance.")
+                elif 0 < w_amount <= 1000:
+                    st.session_state.user_balances[user] -= w_amount
+                    now = datetime.datetime.now().strftime("%d %b, %H:%M")
+                    st.session_state.user_histories[user].append(f"🔴 | {now} | Withdraw: -{w_amount:,.2f} ฿")
+                    st.balloons()
+                    st.rerun()
+                else:
+                    st.error("Limit: 1 - 1,000 ฿")
 
     with tab2:
-        st.subheader("🕒 Recent Transactions")
+        st.subheader("Transaction History")
         history = st.session_state.user_histories[user]
         if not history:
-            st.info("No transactions yet.")
+            st.info("No transactions found.")
         else:
             for item in reversed(history):
-                st.text(item)
+                st.markdown(f'<div class="history-item">{item}</div>', unsafe_allow_html=True)
 
     with tab3:
-        st.subheader("Account Settings")
-        st.write(f"Account Name: {user}")
-        st.write(f"Account Status: Active")
-        if st.button("Clear History"):
+        st.subheader("Account Info")
+        st.write(f"**Username:** {user}")
+        st.write("**Account Type:** Saving Account")
+        if st.button("🗑️ Clear History", type="secondary"):
             st.session_state.user_histories[user] = []
             st.rerun()
 
     st.divider()
-    st.caption("© 2026 Dovesinthewind69 Bank Digital System")
+    st.markdown("<p style='text-align: center; color: gray; font-size: 0.8rem;'>© 2026 DOVES BANK DIGITAL SYSTEM v2.0</p>", unsafe_allow_html=True)
