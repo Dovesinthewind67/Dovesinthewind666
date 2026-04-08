@@ -27,7 +27,7 @@ if 'current_user' not in st.session_state:
 if not st.session_state.is_logged_in:
     st.markdown("<h1 style='text-align: center;'>🔐 DOVESINTHEWIND69 BANK</h1>", unsafe_allow_html=True)
     
-    auth_mode = st.tabs(["เข้าสู่ระบบ (Login)", "สมัครสมาชิก (Sign Up)"])
+    auth_mode = st.tabs(["Login", "Sign up"])
 
     # --- TAB: LOGIN ---
     with auth_mode[0]:
