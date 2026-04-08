@@ -3,7 +3,7 @@ import datetime
 import pandas as pd
 
 # --- CONFIG ---
-st.set_page_config(page_title="DOVESINTHEWIND69 BANK", page_icon="💎", layout="wide")
+st.set_page_config(page_title=" DOVESINTHEWIND69 BANK ", page_icon="💎", layout="wide")
 
 # --- LUXURY CSS ---
 st.markdown("""
