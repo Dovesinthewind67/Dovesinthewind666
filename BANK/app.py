@@ -13,7 +13,7 @@ if 'history' not in st.session_state:
     st.session_state.history = [] 
 # --- LOGIN PAGE ---
 if not st.session_state.is_logged_in:
-    st.markdown("<h1 style='text-align: center;'>🔐 DOVESINTHEWIND69 BANK LOGIN</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>🔐 DOVESINTHEWIND69 BANK LOGIN </h1>", unsafe_allow_html=True)
     
     with st.container(border=True):
         user_input = st.text_input("Username", placeholder="Enter your username")
