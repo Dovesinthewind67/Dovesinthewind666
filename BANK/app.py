@@ -34,7 +34,7 @@ LANGUAGES = {
     },
     "EN": {
         "welcome": "Welcome to",
-        "sub_welcome": "Secure & Simple Digital Banking",
+        "sub_welcome": "Developed by โอโซนบ้านร้อง",
         "login": "Login",
         "signup": "Sign Up",
         "user_label": "Username",
