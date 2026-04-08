@@ -75,8 +75,8 @@ def get_tier(balance):
 
 # --- LOGIN / SIGNUP ---
 if not st.session_state.is_logged_in:
-    st.markdown("<h1 style='text-align: center;'>DOVES LUXE BANK</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #D4AF37;'>EXCLUSIVITY IN EVERY TRANSACTION</p>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>DOVESINTHEWIND69</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #D4AF37;'>Kuay rai sus</p>", unsafe_allow_html=True)
     
     _, col2, _ = st.columns([1, 1.5, 1])
     with col2:
