@@ -8,7 +8,7 @@ st.set_page_config(page_title="DovesInTheWind69 Bank", page_icon="💎", layout=
 LANGUAGES = {
     "TH": {
         "welcome": "ยินดีต้อนรับสู่",
-        "sub_welcome": "พัฒนา โดย โอโซบบ้านร้อง",
+        "sub_welcome": "Developed by โอโซนบ้านร้อง",
         "login": "เข้าสู่ระบบ",
         "signup": "เปิดบัญชี",
         "user_label": "ชื่อผู้ใช้งาน",
